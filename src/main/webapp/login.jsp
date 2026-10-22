@@ -1,0 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Log in | CareerLaunch</title><link rel="stylesheet" href="<%=request.getContextPath()%>/assets/style.css"></head><body><%@ include file="includes/header.jspf" %>
+<main class="auth-wrap"><section class="auth-card"><p class="eyebrow">WELCOME BACK</p><h1>Good to see you.</h1><p class="muted">Log in to continue your career journey.</p>
+<%if(request.getAttribute("error")!=null){%><div class="alert"><%=request.getAttribute("error")%></div><%}%>
+<%if("1".equals(request.getParameter("registered"))){%><div class="success">Account created. You can log in now.</div><%}%>
+<form method="post" action="<%=request.getContextPath()%>/login" class="stack-form"><label>Email address<input type="email" name="email" required autocomplete="email"></label><label>Password<input type="password" name="password" required autocomplete="current-password"></label><button class="btn btn-block">Log in</button></form><p class="form-foot">New here? <a href="<%=request.getContextPath()%>/register.jsp">Create an account</a></p></section></main></body></html>

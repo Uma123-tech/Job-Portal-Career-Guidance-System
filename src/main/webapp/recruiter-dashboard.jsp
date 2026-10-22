@@ -1,0 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*,com.jobportal.model.User,com.jobportal.model.Job" %>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recruiter dashboard | CareerLaunch</title><link rel="stylesheet" href="<%=request.getContextPath()%>/assets/style.css"></head><body><%@ include file="includes/header.jspf" %>
+<main class="container page-space"><p class="eyebrow">RECRUITER WORKSPACE</p><h1>Recruiter dashboard</h1><p class="muted">Publish opportunities and review incoming applications.</p><%if("1".equals(request.getParameter("posted"))){%><div class="success">Your job has been posted.</div><%}%>
+<div class="section-heading"><h2>Your job listings</h2><a class="btn" href="<%=request.getContextPath()%>/post-job.jsp">+ Post a job</a></div><div class="job-grid">
+<%List<Job> jobs=(List<Job>)request.getAttribute("myJobs");if(jobs.isEmpty()){%><div class="empty-state">No listings yet. Create your first job posting.</div><%}for(Job j:jobs){%><article class="job-card"><span class="tag"><%=esc(j.getJobType())%></span><h3><%=esc(j.getTitle())%></h3><p><%=esc(j.getCompany())%> · <%=esc(j.getLocation())%></p><p class="muted"><%=esc(j.getRequiredSkills())%></p></article><%}%></div>
+<div class="section-heading"><h2>Applicants</h2></div><div class="table-wrap"><table><thead><tr><th>Candidate</th><th>Email</th><th>Position</th><th>Status</th><th>Applied at</th></tr></thead><tbody>
+<%List<Map<String,String>> apps=(List<Map<String,String>>)request.getAttribute("applicants");if(apps.isEmpty()){%><tr><td colspan="5">No applications received yet.</td></tr><%}for(Map<String,String>a:apps){%><tr><td><%=esc(a.get("name"))%></td><td><%=esc(a.get("email"))%></td><td><%=esc(a.get("title"))%></td><td><span class="tag"><%=esc(a.get("status"))%></span></td><td><%=esc(a.get("appliedAt"))%></td></tr><%}%>
+</tbody></table></div></main></body></html>
+<%! private String esc(String s){if(s==null)return "";return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#39;");}%>

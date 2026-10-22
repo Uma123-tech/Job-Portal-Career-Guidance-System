@@ -1,0 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*,com.jobportal.model.User" %>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your dashboard | CareerLaunch</title><link rel="stylesheet" href="<%=request.getContextPath()%>/assets/style.css"></head><body><%@ include file="includes/header.jspf" %>
+<main class="container page-space"><p class="eyebrow">YOUR SPACE</p><h1>Welcome, <%=esc(((User)session.getAttribute("user")).getFullName())%>.</h1><p class="muted">Track the roles you have applied for and keep moving forward.</p>
+<%if("1".equals(request.getParameter("applied"))){%><div class="success">Application submitted successfully.</div><%}if("1".equals(request.getParameter("duplicate"))){%><div class="alert">You have already applied for that job.</div><%}%>
+<div class="section-heading"><h2>Your applications</h2><a class="text-link" href="<%=request.getContextPath()%>/jobs">Explore jobs →</a></div>
+<div class="table-wrap"><table><thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Status</th><th>Applied at</th></tr></thead><tbody>
+<%List<Map<String,String>> apps=(List<Map<String,String>>)request.getAttribute("applications");if(apps.isEmpty()){%><tr><td colspan="5">You haven't applied to any jobs yet.</td></tr><%}for(Map<String,String>a:apps){%><tr><td><%=esc(a.get("title"))%></td><td><%=esc(a.get("company"))%></td><td><%=esc(a.get("location"))%></td><td><span class="tag"><%=esc(a.get("status"))%></span></td><td><%=esc(a.get("appliedAt"))%></td></tr><%}%>
+</tbody></table></div></main></body></html>
+<%! private String esc(String s){if(s==null)return "";return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#39;");}%>
