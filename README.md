@@ -65,3 +65,7 @@ Open: http://localhost:8080/JobPortalCareerGuidance/
 - Admin moderation
 - Application status update interface
 - Automated tests
+## Screenshots
+
+### Home Page
+![CareerLaunch Home Page](screenshots/Screenshot%202026-10-22%20161823.png)
